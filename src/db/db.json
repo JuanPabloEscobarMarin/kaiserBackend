@@ -1,0 +1,148 @@
+{
+  "services": [
+    {
+      "category": [
+        "General",
+        null
+      ],
+      "id": "d6340749-1717-4df9-89ec-648374dcebfd",
+      "name": "nuevo nombre",
+      "price": 35000,
+      "time": 60,
+      "state": true,
+      "createdAt": "2026-01-08T01:25:28.532Z"
+    },
+    {
+      "category": [
+        "General",
+        "Sexo"
+      ],
+      "id": "c21004f4-e288-4d79-98ae-cfa03a562096",
+      "name": "Prueba",
+      "price": 35000,
+      "time": 120,
+      "state": true,
+      "createdAt": "2026-01-19T02:53:08.461Z"
+    },
+    {
+      "category": [
+        "General",
+        "Sexo"
+      ],
+      "id": "88c48437-cac7-4d1b-9b24-0314f2fab502",
+      "name": "prueba 2",
+      "price": 35000,
+      "time": 120,
+      "state": true,
+      "createdAt": "2026-01-19T03:02:05.258Z"
+    }
+  ],
+  "employees": [
+    {
+      "id": "31e7711e-4589-42c7-b8e9-7049874fe303",
+      "name": "Jorge",
+      "firstLastName": "Uribe",
+      "secondLastName": "Perez",
+      "position": "Barbero",
+      "state": true,
+      "createdAt": "2026-01-08T01:25:28.548Z"
+    },
+    {
+      "id": "1bce6b34-aa04-4f13-986f-8b17317f305e",
+      "name": "Ana",
+      "firstLastName": "García",
+      "secondLastName": "López",
+      "position": "Estilista",
+      "state": true,
+      "createdAt": "2026-01-19T02:28:16.502Z"
+    },
+    {
+      "id": "49c24ab4-bda4-4b1e-946f-5f89f401f469",
+      "name": "Kobar",
+      "firstLastName": "Apellido_1",
+      "secondLastName": "Apellido_",
+      "position": "",
+      "state": true,
+      "createdAt": "2026-01-19T03:02:35.162Z"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "040800ab-d666-4170-b9dc-cce78372494a",
+      "serviceId": "d6340749-1717-4df9-89ec-648374dcebfd",
+      "employeeId": "31e7711e-4589-42c7-b8e9-7049874fe303",
+      "startTime": "2026-02-10T10:00:00",
+      "customerName": "Cliente HTTP",
+      "customerIdentification": "123456789",
+      "state": "cancelled",
+      "createdAt": "2026-01-18T21:26:58.709Z",
+      "updatedAt": "2026-01-18T21:26:58.709Z"
+    },
+    {
+      "id": "68f67514-18f8-454f-9441-18a0578bd4e2",
+      "serviceId": "d6340749-1717-4df9-89ec-648374dcebfd",
+      "employeeId": "31e7711e-4589-42c7-b8e9-7049874fe303",
+      "startTime": "2025-02-10T10:00:00",
+      "customerName": "Cliente HTTP",
+      "customerIdentification": "123456789",
+      "state": "scheduled",
+      "createdAt": "2026-01-18T21:27:39.382Z",
+      "updatedAt": "2026-01-18T21:27:39.382Z"
+    },
+    {
+      "id": "168cdc6d-5c91-461f-82e3-9efe7e208401",
+      "serviceId": "d6340749-1717-4df9-89ec-648374dcebfd",
+      "employeeId": "31e7711e-4589-42c7-b8e9-7049874fe303",
+      "startTime": "2026-02-10T11:00:00",
+      "customerName": "Cliente HTTP",
+      "customerIdentification": "123456789",
+      "state": "finished",
+      "createdAt": "2026-01-18T21:28:19.275Z",
+      "updatedAt": "2026-01-18T21:28:19.275Z"
+    },
+    {
+      "id": "d5e07f51-6e9b-491d-9762-1cfea7e095f0",
+      "serviceId": "88c48437-cac7-4d1b-9b24-0314f2fab502",
+      "employeeId": "49c24ab4-bda4-4b1e-946f-5f89f401f469",
+      "startTime": "2026-02-10T10:00:00",
+      "customerName": "Juan Pérez",
+      "customerIdentification": "123456789",
+      "state": "scheduled",
+      "createdAt": "2026-01-19T03:02:53.413Z",
+      "updatedAt": "2026-01-19T03:02:53.413Z"
+    },
+    {
+      "id": "573cb7dc-9663-4536-b04d-e315d07396ee",
+      "serviceId": "88c48437-cac7-4d1b-9b24-0314f2fab502",
+      "employeeId": "49c24ab4-bda4-4b1e-946f-5f89f401f469",
+      "startTime": "2026-02-10T12:00:00",
+      "customerName": "Juan Pérez",
+      "customerIdentification": "123456789",
+      "state": "scheduled",
+      "createdAt": "2026-01-19T03:03:04.337Z",
+      "updatedAt": "2026-01-19T03:03:04.337Z"
+    },
+    {
+      "id": "2b167553-834a-49b9-9172-f863dd66c0ef",
+      "serviceId": "d6340749-1717-4df9-89ec-648374dcebfd",
+      "employeeId": "31e7711e-4589-42c7-b8e9-7049874fe303",
+      "startTime": "2026-02-10T08:00:00",
+      "customerName": "Juan Pérez",
+      "customerIdentification": "123456789",
+      "state": "scheduled",
+      "createdAt": "2026-01-19T03:06:19.744Z",
+      "updatedAt": "2026-01-19T03:06:19.744Z"
+    },
+    {
+      "id": "486ddc97-5924-4f91-858d-c3f867802702",
+      "serviceId": "d6340749-1717-4df9-89ec-648374dcebfd",
+      "employeeId": "31e7711e-4589-42c7-b8e9-7049874fe303",
+      "startTime": "2026-02-10T05:59:59",
+      "customerName": "Juan Pérez",
+      "customerIdentification": "123456789",
+      "state": "scheduled",
+      "createdAt": "2026-01-19T03:06:53.939Z",
+      "updatedAt": "2026-01-19T03:06:53.939Z"
+    }
+  ]
+}
