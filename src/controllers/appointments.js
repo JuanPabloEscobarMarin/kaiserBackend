@@ -8,7 +8,7 @@ export class Appointment {
     employeeId,
     startTime,
     customerName,
-    customerIdentification,
+    customerNumber,
     state,
     createdAt,
     updatedAt,
@@ -19,7 +19,7 @@ export class Appointment {
       !employeeId ||
       !customerName ||
       !startTime ||
-      !customerIdentification
+      !customerNumber
     ) {
       throw new Error("Missing information to schedule an appointment");
     }
@@ -28,8 +28,8 @@ export class Appointment {
     this.employeeId = employeeId;
     this.startTime = startTime;
     this.customerName = customerName;
-    this.customerIdentification = customerIdentification;
-    this.state = state ? state : "scheduled";
+    this.customerNumber = Number(customerNumber);
+    this.state = state ? state : "scheduled"; // appointments state can be "scheduled", "cancelled" or "finished"
     this.createdAt = createdAt ? new Date(createdAt) : new Date();
     this.updatedAt = updatedAt ? new Date(updatedAt) : new Date();
     this.observation = observation;
@@ -88,8 +88,10 @@ export const updateAppointment = (req, res) => {
     const finalServiceId = update.serviceId || appointment.serviceId;
     const finalEmployeeId = update.employeeId || appointment.employeeId;
     const finalCustomerName = update.customerName || appointment.customerName;
-    const finalCustomerIdentification =
-      update.customerIdentification || appointment.customerIdentification;
+    const finalCustomerNumber =
+      update.customerNumber !== undefined
+        ? Number(update.customerNumber)
+        : appointment.customerNumber;
     const finalObservation = update.observation || appointment.observation;
     const checkAvailable = isAvailable(
       finalEmployeeId,
@@ -105,7 +107,7 @@ export const updateAppointment = (req, res) => {
     appointment.employeeId = finalEmployeeId;
     appointment.observation = finalObservation;
     appointment.customerName = finalCustomerName;
-    appointment.customerIdentification = finalCustomerIdentification;
+    appointment.customerNumber = finalCustomerNumber;
     appointment.updatedAt = new Date();
     saveToDisk();
     res.json({ message: "Cita actualizada exitosamente", data: appointment });
@@ -160,11 +162,9 @@ export const finishAppointment = (req, res) => {
       return res.status(404).json({ error: "Appointment not found" });
     }
     if (appointment.state !== "scheduled") {
-      return res
-        .status(400)
-        .json({
-          error: "This Appointment is not scheduled, it finished or cancelled",
-        });
+      return res.status(400).json({
+        error: "This Appointment is not scheduled, it finished or cancelled",
+      });
     }
     appointment.state = "finished";
     saveToDisk();
@@ -196,7 +196,7 @@ export const isAvailable = (
       e.employeeId === employeeId &&
       e.state !== "cancelled" &&
       e.id !== ignoreId,
-  );
+  ); // refactorizar para programacion funcional y no mutar el array original
   const serviceObj = services.find((e) => e.id === serviceId);
   if (!serviceObj) {
     throw new Error("Service doesnt exist");
@@ -227,9 +227,9 @@ export const getAvailableSlots = (employeeId, serviceId, date) => {
   const slots = [];
   const service = services.find((e) => e.id === serviceId);
   let currentHour = new Date(date.replace(/-/g, "/"));
-  currentHour.setHours(8, 0, 0, 0);
+  currentHour.setHours(8, 0, 0, 0); // parametrizar para que sean variables que pueda cambiar el admin facilmente desde un panel de control
   const endOfDay = new Date(currentHour);
-  endOfDay.setHours(17, 0, 0, 0);
+  endOfDay.setHours(17, 0, 0, 0); // parametrizar para que sean variables que pueda cambiar el admin facilmente desde un panel de control
   while (currentHour < endOfDay) {
     const potentialEndTime = new Date(currentHour);
     potentialEndTime.setMinutes(potentialEndTime.getMinutes() + service.time);

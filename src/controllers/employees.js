@@ -34,8 +34,6 @@ export class Employee {
 
 export const employees = [];
 
-//añade un employee, nombre y apellidos no pueden ser vacíos
-
 // Express controller functions
 export const getAllEmployees = (req, res) => {
   res.json(employees);

@@ -35,6 +35,18 @@
       "time": 120,
       "state": true,
       "createdAt": "2026-01-19T03:02:05.258Z"
+    },
+    {
+      "category": [
+        "General",
+        "hombres"
+      ],
+      "id": "d9851332-f06c-4ea8-8408-d7b15163de05",
+      "name": "Corte y Barba",
+      "price": 100000,
+      "time": 120,
+      "state": true,
+      "createdAt": "2026-02-10T01:32:25.830Z"
     }
   ],
   "employees": [
@@ -64,6 +76,15 @@
       "position": "",
       "state": true,
       "createdAt": "2026-01-19T03:02:35.162Z"
+    },
+    {
+      "id": "8b04e362-910b-478b-8f5f-3e8b69639f3e",
+      "name": "KevinBarber",
+      "firstLastName": "JayBarber",
+      "secondLastName": "Hbarber",
+      "position": "Barbero",
+      "state": true,
+      "createdAt": "2026-02-10T01:33:05.908Z"
     }
   ],
   "appointments": [
