@@ -1,13 +1,16 @@
 import express from "express";
 import routes from "./routes/index.js";
 import dotenv from "dotenv";
+import {SignJWT, jwtDecrypt, jwtVerify} from "jose";
 import { loadFromDisk } from "./db/database.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 // Cargar datos desde el disco al iniciar la aplicación
 loadFromDisk();
@@ -24,5 +27,31 @@ app.get("/", (req, res) => {
 app.get("/health", (req, res) => {
   res.send(`<h1>Todo bien</h1>`);
 });
+
+app.get("/login", async (req, res) => {
+  const secret = new TextEncoder().encode(process.env.JWT_SECRET)
+
+const jwt = await new SignJWT({ name: "Juan Pablo"})
+  .setProtectedHeader({ alg: 'HS256' })
+  .setIssuedAt()
+  .setExpirationTime('2h')
+  .sign(secret)
+
+  res.cookie("jwt_token", jwt).send('NO DEBERIAS VER ESTO')
+})
+
+app.get("/logout", async (req, res) => {
+  res.cookie("jwt_token", null).send("Sesion terminada")
+})
+
+app.get("/protected", async (req, res) => {
+  const secret = new TextEncoder().encode(process.env.JWT_SECRET)
+  const token = req.cookies.jwt_token
+
+  const {payload} = await jwtVerify(token, secret)
+
+  console.log(payload.name)
+  res.send("GOOD")
+})
 
 export { app };
