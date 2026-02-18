@@ -1,7 +1,7 @@
 import express from "express";
 import routes from "./routes/index.js";
 import dotenv from "dotenv";
-import {SignJWT, jwtDecrypt, jwtVerify} from "jose";
+import {SignJWT} from "jose";
 import { loadFromDisk } from "./db/database.js";
 import cookieParser from "cookie-parser";
 
@@ -40,18 +40,8 @@ const jwt = await new SignJWT({ name: "Juan Pablo"})
   res.cookie("jwt_token", jwt).send('NO DEBERIAS VER ESTO')
 })
 
-app.get("/logout", async (req, res) => {
+app.get("/logout", (req, res) => {
   res.cookie("jwt_token", null).send("Sesion terminada")
-})
-
-app.get("/protected", async (req, res) => {
-  const secret = new TextEncoder().encode(process.env.JWT_SECRET)
-  const token = req.cookies.jwt_token
-
-  const {payload} = await jwtVerify(token, secret)
-
-  console.log(payload.name)
-  res.send("GOOD")
 })
 
 export { app };
