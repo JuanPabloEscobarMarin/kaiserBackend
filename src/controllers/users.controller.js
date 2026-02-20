@@ -1,7 +1,8 @@
 import crypto from "crypto";
 import { saveToDisk } from "../db/database.js";
+import User from "../../models/user.js";
 
-export class User {
+export class UsersController {
   constructor({ id, username, password, number, role } = {}) {
     if (
       !username ||
@@ -31,8 +32,10 @@ export class User {
 export const users = [];
 
 // Express controller functions
-export const getAllUsers = (req, res) => {
-  res.json(users);
+export const getAllUsers = async (req, res) => {
+  const usersDb = await User.findAll()
+
+  res.json({ users: usersDb });
 };
 
 export const getUserById = (req, res) => {

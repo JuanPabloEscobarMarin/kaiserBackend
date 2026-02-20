@@ -2,7 +2,7 @@ import fs from "fs";
 import { services, Service } from "../controllers/services.js";
 import { Appointment, appointments } from "../controllers/appointments.js";
 import { Employee, employees } from "../controllers/employees.js";
-import { users, User } from "../controllers/users.js";
+import { users } from "../controllers/users.controller.js";
 
 //ruta absoluta al json
 import path from "path";
