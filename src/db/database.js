@@ -2,6 +2,7 @@ import fs from "fs";
 import { services, Service } from "../controllers/services.js";
 import { Appointment, appointments } from "../controllers/appointments.js";
 import { Employee, employees } from "../controllers/employees.js";
+import { users, User } from "../controllers/users.js";
 
 //ruta absoluta al json
 import path from "path";
@@ -16,6 +17,7 @@ export const saveToDisk = () => {
     services,
     employees,
     appointments,
+    users,
   };
   const jsonText = JSON.stringify(data, null, 2);
   fs.writeFileSync(DB_PATH, jsonText, "utf-8");
@@ -31,6 +33,18 @@ export const loadFromDisk = () => {
   services.length = 0;
   employees.length = 0;
   appointments.length = 0;
+  users.length = 0;
+  if (data.users) {
+    const instances = [];
+    data.users.forEach((e, i) => {
+      try {
+        instances.push(new User(e));
+      } catch (err) {
+        console.error(`Error cargando user[${i}]:`, err.message, e);
+      }
+    });
+    users.push(...instances);
+  }
 
   if (data.services) {
     const instances = [];
@@ -66,6 +80,6 @@ export const loadFromDisk = () => {
     appointments.push(...instances);
   }
   console.log(
-    `The data has been charged: services=${services.length}, employees=${employees.length}, appointments=${appointments.length}`,
+    `The data has been charged: services=${services.length}, employees=${employees.length}, appointments=${appointments.length}, users=${users.length}`,
   );
 };

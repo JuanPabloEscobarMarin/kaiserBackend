@@ -94,7 +94,7 @@
       "employeeId": "31e7711e-4589-42c7-b8e9-7049874fe303",
       "startTime": "2026-02-10T10:00:00",
       "customerName": "Cliente HTTP",
-      "customerIdentification": "123456789",
+      "customerNumber": 123456789,
       "state": "cancelled",
       "createdAt": "2026-01-18T21:26:58.709Z",
       "updatedAt": "2026-01-18T21:26:58.709Z"
@@ -105,7 +105,7 @@
       "employeeId": "31e7711e-4589-42c7-b8e9-7049874fe303",
       "startTime": "2025-02-10T10:00:00",
       "customerName": "Cliente HTTP",
-      "customerIdentification": "123456789",
+      "customerNumber": 123456789,
       "state": "scheduled",
       "createdAt": "2026-01-18T21:27:39.382Z",
       "updatedAt": "2026-01-18T21:27:39.382Z"
@@ -116,7 +116,7 @@
       "employeeId": "31e7711e-4589-42c7-b8e9-7049874fe303",
       "startTime": "2026-02-10T11:00:00",
       "customerName": "Cliente HTTP",
-      "customerIdentification": "123456789",
+      "customerNumber": 123456789,
       "state": "finished",
       "createdAt": "2026-01-18T21:28:19.275Z",
       "updatedAt": "2026-01-18T21:28:19.275Z"
@@ -127,7 +127,7 @@
       "employeeId": "49c24ab4-bda4-4b1e-946f-5f89f401f469",
       "startTime": "2026-02-10T10:00:00",
       "customerName": "Juan Pérez",
-      "customerIdentification": "123456789",
+      "customerNumber": 123456789,
       "state": "scheduled",
       "createdAt": "2026-01-19T03:02:53.413Z",
       "updatedAt": "2026-01-19T03:02:53.413Z"
@@ -138,7 +138,7 @@
       "employeeId": "49c24ab4-bda4-4b1e-946f-5f89f401f469",
       "startTime": "2026-02-10T12:00:00",
       "customerName": "Juan Pérez",
-      "customerIdentification": "123456789",
+      "customerNumber": 123456789,
       "state": "scheduled",
       "createdAt": "2026-01-19T03:03:04.337Z",
       "updatedAt": "2026-01-19T03:03:04.337Z"
@@ -149,7 +149,7 @@
       "employeeId": "31e7711e-4589-42c7-b8e9-7049874fe303",
       "startTime": "2026-02-10T08:00:00",
       "customerName": "Juan Pérez",
-      "customerIdentification": "123456789",
+      "customerNumber": 123456789,
       "state": "scheduled",
       "createdAt": "2026-01-19T03:06:19.744Z",
       "updatedAt": "2026-01-19T03:06:19.744Z"
@@ -160,10 +160,26 @@
       "employeeId": "31e7711e-4589-42c7-b8e9-7049874fe303",
       "startTime": "2026-02-10T05:59:59",
       "customerName": "Juan Pérez",
-      "customerIdentification": "123456789",
+      "customerNumber": 123456789,
       "state": "scheduled",
       "createdAt": "2026-01-19T03:06:53.939Z",
       "updatedAt": "2026-01-19T03:06:53.939Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "6a99fbce-a8f2-4b82-956c-c67f4613c3d0",
+      "username": "kobar",
+      "password": "clave123",
+      "number": "3218426226",
+      "role": "admin"
+    },
+    {
+      "id": "d556d76d-f99f-481b-9bdf-b55b13e3b47e",
+      "username": "kevin",
+      "password": "clave123",
+      "number": "3218426225",
+      "role": "admin"
     }
   ]
 }
