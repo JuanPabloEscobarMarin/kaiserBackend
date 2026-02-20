@@ -18,3 +18,7 @@ export const login = async (req, res) => {
 
   res.cookie("jwt_token", jwt).json({ message: "Login exitoso" });
 };
+
+export const logout = (req, res) => {
+  res.clearCookie("jwt_token").json({ message: "Sesion terminada" });
+};

@@ -24,7 +24,7 @@ export class User {
     this.username = username;
     this.password = password;
     this.number = number;
-    this.role = role || "user";
+    this.role = role || "client"; // admin or client
   }
 }
 

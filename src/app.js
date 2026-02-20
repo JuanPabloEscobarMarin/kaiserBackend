@@ -1,7 +1,6 @@
 import express from "express";
 import routes from "./routes/index.js";
 import dotenv from "dotenv";
-import {SignJWT} from "jose";
 import { loadFromDisk } from "./db/database.js";
 import cookieParser from "cookie-parser";
 
@@ -27,10 +26,5 @@ app.get("/", (req, res) => {
 app.get("/health", (req, res) => {
   res.send(`<h1>Todo bien</h1>`);
 });
-
-
-app.get("/logout", (req, res) => {
-  res.cookie("jwt_token", null).send("Sesion terminada")
-})
 
 export { app };
