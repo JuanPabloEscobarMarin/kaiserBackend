@@ -1,8 +1,8 @@
 import fs from "fs";
-import { services, Service } from "../controllers/services.js";
-import { Appointment, appointments } from "../controllers/appointments.js";
-import { Employee, employees } from "../controllers/employees.js";
-import { users, User } from "../controllers/users.js";
+import { services, Service } from "../controllers/services.ts";
+import { Appointment, appointments } from "../controllers/appointments.ts";
+import { Employee, employees } from "../controllers/employees.ts";
+import { users, User } from "../controllers/users.ts";
 
 //ruta absoluta al json
 import path from "path";

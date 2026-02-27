@@ -1,9 +1,9 @@
 import { Router } from "express";
-import servicesRouter from "./services.js";
-import employeesRouter from "./employees.js";
-import appointmentsRouter from "./appointments.js";
-import usersRouter from "./users.js";
-import authRouter from "./auth.js";
+import servicesRouter from "./services.ts";
+import employeesRouter from "./employees.ts";
+import appointmentsRouter from "./appointments.ts";
+import usersRouter from "./users.ts";
+import authRouter from "./auth.ts";
 import { adminVerify } from "../middlewares/auth.middleware.js";
 
 const router = Router();

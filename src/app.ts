@@ -1,7 +1,7 @@
 import express from "express";
-import routes from "./routes/index.js";
+import routes from "./routes/index.ts";
 import dotenv from "dotenv";
-import { loadFromDisk } from "./db/database.js";
+import { loadFromDisk } from "./db/database.ts";
 import cookieParser from "cookie-parser";
 
 dotenv.config();
@@ -15,16 +15,5 @@ app.use(cookieParser());
 loadFromDisk();
 
 app.use("/api", routes);
-
-app.get("/", (req, res) => {
-  res.send(`
-        <h1>Welcome to Kaiser Backend</h1>
-        <p> This is a simple Express Server </p>
-    `);
-});
-
-app.get("/health", (req, res) => {
-  res.send(`<h1>Todo bien</h1>`);
-});
 
 export { app };

@@ -1,7 +1,29 @@
-import { services } from "./services.js";
-import { saveToDisk } from "../db/database.js";
+import { services } from "./services.ts";
+import { saveToDisk } from "../db/database.ts";
+import type { Request, Response } from "express";
 
-export class Appointment {
+interface Appointment {
+  id: string,
+  serviceId: string,
+  employeeId: string,
+  startTime: Date,
+  customerName: string,
+  customerNumber: string,
+  state: AppointmentState,
+  createdAt: Date,
+  updatedAt: Date,
+  observation: string,
+}
+
+export enum AppointmentState {
+  'SCHEDULED',
+  'CANCELLED',
+  'FINISHED'
+}
+
+class AppointmentsController {
+  appointments: Array<Appointment> = [];
+
   constructor({
     id,
     serviceId,
@@ -34,56 +56,42 @@ export class Appointment {
     this.updatedAt = updatedAt ? new Date(updatedAt) : new Date();
     this.observation = observation;
   }
-}
 
-export const appointments = [];
+  getAll = (_: Request, res: Response) => res.json(this.appointments);
 
-// Express controller functions
-export const getAllAppointments = (req, res) => {
-  res.json(appointments);
+  getById = (req: Request, res: Response) => {
+  const appointment = this.appointments.find((e) => e.id === req.params.id);
+
+  if (!appointment) return res.status(404).json({ error: "Appointment not found" });
+
+  return res.json(appointment);
 };
 
-export const addAppointment = (req, res) => {
+save = (req: Request, res: Response) => {
   try {
-    const newAppointment = new Appointment(req.body);
-    if (
-      !isAvailable(
-        newAppointment.employeeId,
-        newAppointment.startTime,
-        newAppointment.serviceId,
-      )
-    ) {
-      throw new Error("Cant create the appointment, is not a slot available");
-    }
-    appointments.push(newAppointment);
+    // Llenalo tu
+    const appointment: Appointment = {};
+
+    if (!isAvailable(appointment)) throw new Error("Cant create the appointment, is not a slot available");
+
+    this.appointments.push(appointment);
     saveToDisk();
-    res
-      .status(201)
-      .json({ message: "Cita agendada exitosamente", data: newAppointment });
+
+    return res.status(201).json({ message: "Cita agendada exitosamente", data: appointment });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    if (error instanceof Error) return res.status(400).json({ error: error.message });
   }
 };
 
-export const getAppointmentById = (req, res) => {
-  const appointment = appointments.find((e) => e.id === req.params.id);
-  if (!appointment) {
-    return res.status(404).json({ error: "Appointment not found" });
-  }
-  res.json(appointment);
-};
-
-export const updateAppointment = (req, res) => {
+update = (req: Request, res: Response) => {
   try {
     const id = req.params.id;
     const update = req.body;
-    const appointment = appointments.find((e) => e.id === id);
-    if (!appointment) {
-      return res.status(404).json({ error: "Appointment Not Found" });
-    }
-    if (appointment.state !== "scheduled") {
-      throw new Error("Only scheduled appointments can be edited");
-    }
+    const appointment = this.appointments.find((e) => e.id === id);
+
+    if (!appointment) throw new Error("Appointment Not Found");
+    if (appointment.state !== AppointmentState.SCHEDULED) throw new Error("Only scheduled appointments can be edited");
+
     const finalStartTime = update.startTime || appointment.startTime;
     const finalServiceId = update.serviceId || appointment.serviceId;
     const finalEmployeeId = update.employeeId || appointment.employeeId;
@@ -93,15 +101,18 @@ export const updateAppointment = (req, res) => {
         ? Number(update.customerNumber)
         : appointment.customerNumber;
     const finalObservation = update.observation || appointment.observation;
-    const checkAvailable = isAvailable(
+
+    //TODO: Crear un objeto de tipo appointment antes
+    const checkAvailable = isAvailable({
       finalEmployeeId,
       finalStartTime,
       finalServiceId,
+    },
       id,
     );
-    if (!checkAvailable) {
-      throw new Error("Cant re-scheduled the appointment");
-    }
+
+    if (!checkAvailable) throw new Error("Cant re-scheduled the appointment");
+
     appointment.startTime = finalStartTime;
     appointment.serviceId = finalServiceId;
     appointment.employeeId = finalEmployeeId;
@@ -110,31 +121,35 @@ export const updateAppointment = (req, res) => {
     appointment.customerNumber = finalCustomerNumber;
     appointment.updatedAt = new Date();
     saveToDisk();
-    res.json({ message: "Cita actualizada exitosamente", data: appointment });
+
+    return res.json({ message: "Cita actualizada exitosamente", data: appointment });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    if (error instanceof Error) return res.status(400).json({ error: error.message });
   }
 };
 
-export const deleteAppointment = (req, res) => {
+delete = (req: Request, res: Response) => {
   try {
     const id = req.params.id;
-    const index = appointments.findIndex((e) => e.id === id);
+    const index = this.appointments.findIndex((e) => e.id === id);
     if (index !== -1) {
-      const deleted = appointments.splice(index, 1)[0];
+      const deleted = this.appointments.splice(index, 1)[0];
       saveToDisk();
-      res.json({
-        message: "Cita eliminada exitosamente",
-        deletedId: deleted.id,
-      });
+
+      return res.json({ message: "Cita eliminada exitosamente", deletedId: deleted?.id });
     } else {
-      res.status(404).json({ error: "Appointment not found" });
+      throw new Error("Appointment not found");
     }
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    if (error instanceof Error) return res.status(400).json({ error: error.message });
   }
 };
+}
 
+export default new AppointmentsController();
+
+
+// Express controller functions
 export const cancelAppointment = (req, res) => {
   try {
     const appointmentId = req.params.id;
@@ -186,18 +201,16 @@ export const getEndTime = (startTime, duration) => {
 };
 
 export const isAvailable = (
-  employeeId,
-  newStart,
-  serviceId,
+  appointment: Appointment,
   ignoreId = null,
 ) => {
   const employeeAppointments = appointments.filter(
     (e) =>
-      e.employeeId === employeeId &&
+      e.employeeId === appointment.employeeId &&
       e.state !== "cancelled" &&
       e.id !== ignoreId,
   ); // refactorizar para programacion funcional y no mutar el array original
-  const serviceObj = services.find((e) => e.id === serviceId);
+  const serviceObj = services.find((e) => e.id === appointment.serviceId);
   if (!serviceObj) {
     throw new Error("Service doesnt exist");
   }
@@ -216,7 +229,7 @@ export const isAvailable = (
       existingDurationService,
     ).getTime();
 
-    if (newStartTime < existingEnd && newEndTime > existingStart) {
+    if (newStartTime < existingEnd && appointment.newEndTime > existingStart) {
       return false;
     }
   }

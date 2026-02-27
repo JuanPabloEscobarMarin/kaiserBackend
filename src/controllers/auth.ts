@@ -1,4 +1,4 @@
-import { users } from "./users.js";
+import { users } from "./users.ts";
 import { SignJWT } from "jose";
 
 export const login = async (req, res) => {
