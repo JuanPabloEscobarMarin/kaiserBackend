@@ -1,8 +1,9 @@
 import express from "express";
 import routes from "./routes/index.ts";
 import dotenv from "dotenv";
-import { loadFromDisk } from "./db/database.ts";
 import cookieParser from "cookie-parser";
+import { PrismaClient } from "../generated/prisma/client.ts";
+import { PrismaPg } from "@prisma/adapter-pg";
 
 dotenv.config();
 
@@ -11,8 +12,11 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-// Cargar datos desde el disco al iniciar la aplicación
-loadFromDisk();
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL!,
+});
+
+export const prisma = new PrismaClient({ adapter });
 
 app.use("/api", routes);
 
