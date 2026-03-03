@@ -1,14 +1,19 @@
 import { jwtVerify } from "jose";
+import type { NextFunction, Request, Response } from "express";
 
-export const adminVerify = async (req, res, next) => {
-  const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-  const token = req.cookies.jwt_token;
+export const adminVerify = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const secret = new TextEncoder().encode(process.env.JWT_SECRET || "");
+  const token = (req as any).cookies?.jwt_token;
 
   if (!token) return res.status(401).send("Unauthorized");
 
   try {
     const { payload } = await jwtVerify(token, secret);
-    if (payload.role !== "admin") {
+    if ((payload as any).role !== "admin") {
       return res.status(403).send("no eres admin crack");
     }
     next();

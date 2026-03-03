@@ -252,7 +252,7 @@ class AppointmentsController {
     const potentialEndTime = new Date(currentHour);
     potentialEndTime.setMinutes(potentialEndTime.getMinutes() + (service?.time || 0));
     if (
-      isAvailable(employeeId, currentHour, serviceId) &&
+      this.isAvailable(appoi, currentHour, serviceId) &&
       potentialEndTime <= endOfDay
     ) {
       slots.push(currentHour.toLocaleString());

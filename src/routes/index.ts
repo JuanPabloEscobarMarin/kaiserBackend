@@ -4,7 +4,7 @@ import employeesRouter from "./employees.ts";
 import appointmentsRouter from "./appointments.ts";
 import usersRouter from "./users.ts";
 import authRouter from "./auth.ts";
-import { adminVerify } from "../middlewares/auth.middleware.js";
+import { adminVerify } from "../middlewares/auth.middleware.ts";
 
 const router = Router();
 
