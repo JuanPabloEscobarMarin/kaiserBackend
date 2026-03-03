@@ -76,7 +76,7 @@ class AppointmentService {
         if (!this.isAppointmentIdValid(id)) throw Error("No es un id valido");
         return await AppointmentRepository.delete(id);
     };
-
+    //TODO : pasar este metodo a utils para no repetirnos
     private isAppointmentIdValid = (id: any) => {
         const uuidRegex =
             /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
