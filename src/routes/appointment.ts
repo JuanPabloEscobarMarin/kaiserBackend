@@ -5,7 +5,7 @@ const router = Router();
 
 router.get("/", AppointmentController.getAll);
 router.get("/lower", AppointmentController.avalaibleLowerThanNow);
-router.get("/exact", AppointmentController.availableDateByDate);
+router.get("/exact/:date", AppointmentController.availableDateByDate);
 router.get("/:id", AppointmentController.getById);
 router.post("/", AppointmentController.save);
 router.put("/:id", AppointmentController.update);
