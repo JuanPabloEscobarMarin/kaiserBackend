@@ -10,7 +10,7 @@ class EmployeeService {
     };
 
     create = async (
-        { fullName, position, state, phone, salary }: any,
+        { fullName, state, phone, salary }: any,
     ) => {
         if (
             !fullName || typeof fullName !== "string" ||
@@ -25,10 +25,6 @@ class EmployeeService {
 
         if (!salary || salary === null) {
             throw new Error("salary is required");
-        }
-
-        if (!position || position === null) {
-            throw new Error("position is required");
         }
 
         return await EmployeeRepository.save({

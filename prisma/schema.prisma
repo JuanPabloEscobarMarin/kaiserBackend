@@ -13,6 +13,9 @@ model User {
   password String
   phone    String @unique
   role     Role   @default(CLIENT)
+  appointmentId String
+  ingress       DateTime    @default(now())
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
 }
 
 model Employee {
@@ -42,15 +45,7 @@ model Appointment {
   state      AppointmentState @default(SCHEDULED)
   employee   Employee         @relation(fields: [employeeId], references: [id])
   service    Service          @relation(fields: [serviceId], references: [id])
-  customers  Customer[]
-}
-
-model Customer {
-  id            String      @id @default(uuid())
-  name          String?
-  appointmentId String
-  ingress       DateTime    @default(now())
-  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  customers  User[]
 }
 
 enum Role {
