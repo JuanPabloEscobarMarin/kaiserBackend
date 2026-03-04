@@ -71,7 +71,7 @@ class AppointmentController {
     }
 
     availableDateByDate = async (req: Request, res: Response) => {
-        const { date } = req.body;
+        const date = req.params.date;
 
         return res.json(await AppointmentService.availableDateByDate(date))
     }
