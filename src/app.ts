@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { PrismaClient } from "../generated/prisma/client.ts";
 import { PrismaPg } from "@prisma/adapter-pg";
+import cors from "cors";
 
 dotenv.config();
 //esta vaina la agregue porque no me funcionaba en mi pc
@@ -15,6 +16,7 @@ if (process.env.NODE_ENV !== "production") {
 
 const app = express();
 
+app.use(cors())
 app.use(express.json());
 app.use(cookieParser());
 
