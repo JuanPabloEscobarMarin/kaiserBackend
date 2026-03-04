@@ -82,6 +82,18 @@ class AppointmentService {
             /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
         return uuidRegex.test(id);
     };
+
+    avalaibleDate = async () => {
+        return await AppointmentRepository.availableDate();
+    }
+
+    availableDateByDate = async (date: any) => {
+        if (!date || typeof date !== "string" || date.trim().length === 0) {
+            throw new Error("date is required");
+        }
+
+        return await AppointmentRepository.availableDateByDate(date);
+    }
 }
 
 export default new AppointmentService();

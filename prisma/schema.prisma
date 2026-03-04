@@ -20,53 +20,42 @@ enum Role {
   ADMIN
 }
 
+model Employee {
+  id           String        @id @default(uuid())
+  fullName     String
+  state        Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  phone        String        @unique
+  salary       Decimal       @default(0)
+  appointments Appointment[]
+}
 
 model Service {
-  id          String   @id @default(uuid())
-  name        String   @unique
-  price       String   @default("0")
-  time        String   @default("0")
-  category    Category @default(GENERAL)
-  state       Boolean   @default(true)
-  discount    String   @default("0")
-  position    Position @default(TODOLOGO)
-
-}
-
-enum Category {
-  GENERAL
-}
-
-// TODO: ¿Que pasa si X empleado solo puede dar Y servicio?
-model Employee {
-  id       String @id @default(uuid())
-  name     String
-  firstLastName String
-  secondLastName String
-  position Position @default(TODOLOGO)
-  state    Boolean @default(true)
-  createdAt DateTime @default(now())
-  phone    String @unique
-  salary   String @default("0")
-}
-
-enum Position {
-  TODOLOGO
-  PELUQUERO
-  MANICURISTA
+  id           String        @id @default(uuid())
+  name         String        @unique
+  price        Decimal
+  duration     Int
+  state        Boolean       @default(true)
+  discount     Decimal       @default(0)
+  appointments Appointment[]
 }
 
 model Appointment {
-  id String @id @default(uuid())
-  serviceId String
+  id         String           @id @default(uuid())
+  service    Service          @relation(fields: [serviceId], references: [id])
+  employee   Employee         @relation(fields: [employeeId], references: [id])
+  serviceId  String
   employeeId String
-  startTime DateTime
-  customerName String
-  customerNumber String
-  state AppointmentState @default(SCHEDULED)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  observation String
+  state      AppointmentState @default(SCHEDULED)
+  customers  Customer[]
+}
+
+model Customer {
+  id            String      @id @default(uuid())
+  name          String?
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  appointmentId String
+  ingress       DateTime    @default(now())
 }
 
 enum AppointmentState {

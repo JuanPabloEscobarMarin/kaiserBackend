@@ -55,8 +55,7 @@ class AppointmentController {
             return res.json({
                 message: "Cita eliminada",
                 data: {
-                    id: appointment.id,
-                    customerName: appointment.customerName,
+                    id: appointment.id
                 },
             });
         } catch (error) {
@@ -65,6 +64,17 @@ class AppointmentController {
             }
         }
     };
+
+    avalaibleLowerThanNow = async (_: Request, res: Response) => {
+        const appointments = await AppointmentService.avalaibleDate();
+        return res.json(appointments)
+    }
+
+    availableDateByDate = async (req: Request, res: Response) => {
+        const { date } = req.body;
+
+        return res.json(await AppointmentService.availableDateByDate(date))
+    }
 }
 
 export default new AppointmentController();
