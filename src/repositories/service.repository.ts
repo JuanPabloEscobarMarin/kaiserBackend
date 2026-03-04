@@ -1,25 +1,20 @@
-import type { Category, Position } from "../../generated/prisma/enums.ts";
 import { prisma } from "../app.ts";
 
 interface ServiceCreateParams {
     name: string;
     price: string;
-    time: string;
-    category: Category;
+    duration: number;
     state: boolean;
     discount: string;
-    position: Position;
 }
 
 interface ServiceUpdateParams {
     name?: string;
     price?: string;
-    time?: string;
+    duration?: number;
     description?: string;
-    category?: Category;
     state?: boolean;
     discount?: string;
-    position?: Position;
 }
 
 class ServiceRepository {

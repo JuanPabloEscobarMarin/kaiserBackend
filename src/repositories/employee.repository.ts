@@ -1,21 +1,14 @@
-import type { Position } from "../../generated/prisma/enums.ts";
 import { prisma } from "../app.ts";
 
 interface EmployeeCreateParams {
-    name: string;
-    firstLastName: string;
-    secondLastName: string;
-    position: Position;
+    fullName: string;
     state: boolean;
     phone: string;
     salary: string;
 }
 
 interface EmployeeUpdateParams {
-    name?: string;
-    firstLastName?: string;
-    secondLastName?: string;
-    position?: Position;
+    fullName?: string;
     state?: boolean;
     phone?: string;
     salary?: string;

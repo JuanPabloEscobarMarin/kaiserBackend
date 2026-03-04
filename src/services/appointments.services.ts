@@ -14,11 +14,7 @@ class AppointmentService {
         {
             serviceId,
             employeeId,
-            startTime,
-            customerName,
-            customerNumber,
             state,
-            observation = "",
         }: any,
     ) => {
         if (
@@ -31,11 +27,7 @@ class AppointmentService {
         return await AppointmentRepository.save({
             serviceId,
             employeeId,
-            startTime,
-            customerName,
-            customerNumber,
             state,
-            observation,
         });
     };
     // TODO: Agregar validacion de que el servicio y el empleado existan antes de  actualizar una cita
@@ -47,11 +39,7 @@ class AppointmentService {
         {
             serviceId,
             employeeId,
-            startTime,
-            customerName,
-            customerNumber,
             state,
-            observation = "",
         }: any,
     ) => {
         if (!this.isAppointmentIdValid(id)) throw Error("No es un id valido");
@@ -63,11 +51,7 @@ class AppointmentService {
         return await AppointmentRepository.update(id, {
             serviceId,
             employeeId,
-            startTime,
-            customerName,
-            customerNumber,
             state,
-            observation,
         });
     };
 
@@ -85,7 +69,7 @@ class AppointmentService {
 
     avalaibleDate = async () => {
         return await AppointmentRepository.availableDate();
-    }
+    };
 
     availableDateByDate = async (date: any) => {
         if (!date || typeof date !== "string" || date.trim().length === 0) {
@@ -93,7 +77,7 @@ class AppointmentService {
         }
 
         return await AppointmentRepository.availableDateByDate(date);
-    }
+    };
 }
 
 export default new AppointmentService();

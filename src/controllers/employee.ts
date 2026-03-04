@@ -54,7 +54,7 @@ class EmployeeController {
             const employee = await EmployeeService.delete(req.params.id);
             return res.json({
                 message: "Empleado eliminado",
-                data: { id: employee.id, name: employee.name },
+                data: { id: employee.id, fullname: employee.fullName },
             });
         } catch (error) {
             if (error instanceof Error) {

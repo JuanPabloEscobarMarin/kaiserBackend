@@ -10,11 +10,13 @@ class EmployeeService {
     };
 
     create = async (
-        { name, firstLastName, secondLastName, position, state, phone, salary }:
-            any,
+        { fullName, position, state, phone, salary }: any,
     ) => {
-        if (!name || typeof name !== "string" || name.trim().length === 0) {
-            throw new Error("name is required");
+        if (
+            !fullName || typeof fullName !== "string" ||
+            fullName.trim().length === 0
+        ) {
+            throw new Error("fullName is required");
         }
 
         if (!phone || phone === null) {
@@ -29,25 +31,8 @@ class EmployeeService {
             throw new Error("position is required");
         }
 
-        if (
-            !firstLastName || typeof firstLastName !== "string" ||
-            firstLastName.trim().length === 0
-        ) {
-            throw new Error("firstLastName is required");
-        }
-
-        if (
-            !secondLastName || typeof secondLastName !== "string" ||
-            secondLastName.trim().length === 0
-        ) {
-            throw new Error("secondLastName is required");
-        }
-
         return await EmployeeRepository.save({
-            name,
-            firstLastName,
-            secondLastName,
-            position,
+            fullName,
             state,
             phone,
             salary,
@@ -56,8 +41,7 @@ class EmployeeService {
 
     update = async (
         id: any,
-        { name, firstLastName, secondLastName, position, state, phone, salary }:
-            any,
+        { fullName, state, phone, salary }: any,
     ) => {
         if (!this.isEmployeeIdValid(id)) throw Error("No es un id valido");
 
@@ -66,10 +50,7 @@ class EmployeeService {
         // o de cambiarle el tiempo o el precio
 
         return await EmployeeRepository.update(id, {
-            name,
-            firstLastName,
-            secondLastName,
-            position,
+            fullName,
             state,
             phone,
             salary,

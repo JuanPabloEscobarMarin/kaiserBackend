@@ -10,7 +10,7 @@ class ServiceService {
     };
 
     create = async (
-        { name, price, time, category, state, discount, position }: any,
+        { name, price, duration, state, discount }: any,
     ) => {
         if (!name || typeof name !== "string" || name.trim().length === 0) {
             throw new Error("name is required");
@@ -23,17 +23,15 @@ class ServiceService {
         return await ServiceRepository.save({
             name,
             price,
-            time,
-            category,
+            duration,
             state,
             discount,
-            position,
         });
     };
 
     update = async (
         id: any,
-        { name, price, time, category, state, discount, position }: any,
+        { name, price, duration, state, discount }: any,
     ) => {
         if (!this.isServiceIdValid(id)) throw Error("No es un id valido");
 
@@ -44,11 +42,9 @@ class ServiceService {
         return await ServiceRepository.update(id, {
             name,
             price,
-            time,
-            category,
+            duration,
             state,
             discount,
-            position,
         });
     };
 

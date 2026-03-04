@@ -15,11 +15,6 @@ model User {
   role     Role   @default(CLIENT)
 }
 
-enum Role {
-  CLIENT
-  ADMIN
-}
-
 model Employee {
   id           String        @id @default(uuid())
   fullName     String
@@ -42,20 +37,25 @@ model Service {
 
 model Appointment {
   id         String           @id @default(uuid())
-  service    Service          @relation(fields: [serviceId], references: [id])
-  employee   Employee         @relation(fields: [employeeId], references: [id])
   serviceId  String
   employeeId String
   state      AppointmentState @default(SCHEDULED)
+  employee   Employee         @relation(fields: [employeeId], references: [id])
+  service    Service          @relation(fields: [serviceId], references: [id])
   customers  Customer[]
 }
 
 model Customer {
   id            String      @id @default(uuid())
   name          String?
-  appointment   Appointment @relation(fields: [appointmentId], references: [id])
   appointmentId String
   ingress       DateTime    @default(now())
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+}
+
+enum Role {
+  CLIENT
+  ADMIN
 }
 
 enum AppointmentState {
