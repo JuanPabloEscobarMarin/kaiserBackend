@@ -20,6 +20,9 @@ class EmployeeRepository {
     byId = async (id: string) =>
         await prisma.employee.findFirst({ where: { id } });
 
+    byServiceId = async (id: string) =>
+        await prisma.employee.findMany({ where: { appointments: { some: { serviceId: id } } } })
+
     save = async (employee: EmployeeCreateParams) =>
         await prisma.employee.create({ data: employee });
 
