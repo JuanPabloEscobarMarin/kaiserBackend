@@ -5,6 +5,7 @@ import employeesRouter from "./employee.ts";
 import appointmentsRouter from "./appointment.ts";
 import authRouter from "./auth.ts";
 import searchRouter from "./search.ts";
+import resourcesRouter from './resources.ts';
 
 const router = Router();
 
@@ -14,6 +15,7 @@ router.use("/services", servicesRouter);
 router.use("/employees", employeesRouter);
 router.use("/appointments", appointmentsRouter);
 router.use("/search", searchRouter);
+router.use("/resources", resourcesRouter);
 /* router.use("/services", adminVerify, servicesRouter);
 router.use("/employees", adminVerify, employeesRouter);
 router.use("/appointments", adminVerify, appointmentsRouter); */
