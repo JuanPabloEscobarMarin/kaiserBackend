@@ -9,6 +9,12 @@ class EmployeeService {
         return await EmployeeRepository.byId(id);
     };
 
+    getByServiceId = async (id: any) => {
+        if (!this.isEmployeeIdValid) throw Error("No es un id valida");
+
+        return await EmployeeRepository.byServiceId(id);
+    }
+
     create = async (
         { fullName, state, phone, salary }: any,
     ) => {

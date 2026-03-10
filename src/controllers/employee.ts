@@ -18,6 +18,18 @@ class EmployeeController {
         }
     };
 
+    getByServiceId = async (req: Request, res: Response) => {
+        try {
+            const employees = await EmployeeService.getByServiceId(req.params.id);
+
+            return res.json(employees);
+        } catch (error) {
+            if (error instanceof Error) {
+                return res.status(404).json({ error: error.message });
+            }
+        }
+    }
+
     save = async (req: Request, res: Response) => {
         try {
             const employee = await EmployeeService.create(req.body);
