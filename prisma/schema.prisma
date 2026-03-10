@@ -13,9 +13,6 @@ model User {
   password String
   phone    String @unique
   role     Role   @default(CLIENT)
-  appointmentId String
-  ingress       DateTime    @default(now())
-  appointment   Appointment @relation(fields: [appointmentId], references: [id])
 }
 
 model Employee {
@@ -35,6 +32,7 @@ model Service {
   duration     Int
   state        Boolean       @default(true)
   discount     Decimal       @default(0)
+  urlImage     String?       @default("https://co.linkedin.com/in/kevin-jay-herrera-1a1291233")
   appointments Appointment[]
 }
 
@@ -45,7 +43,15 @@ model Appointment {
   state      AppointmentState @default(SCHEDULED)
   employee   Employee         @relation(fields: [employeeId], references: [id])
   service    Service          @relation(fields: [serviceId], references: [id])
-  customers  User[]
+  Customer   Customer[]
+}
+
+model Customer {
+  id            String      @id
+  name          String?
+  appointmentId String
+  ingress       DateTime    @default(now())
+  Appointment   Appointment @relation(fields: [appointmentId], references: [id])
 }
 
 enum Role {

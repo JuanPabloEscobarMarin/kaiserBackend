@@ -92,6 +92,7 @@ class SearchService {
                     price: s.price,
                     duration: s.duration,
                     discount: s.discount,
+                    urlImage: s.urlImage,
                 },
             }))
             .filter((s) => s.score >= SCORE_THRESHOLD);

@@ -17,6 +17,7 @@ class SearchRepository {
                 price: true,
                 duration: true,
                 discount: true,
+                urlImage: true,
             },
         });
     };
@@ -30,6 +31,7 @@ class SearchRepository {
                 price: true,
                 duration: true,
                 discount: true,
+                urlImage: true,
             },
         });
 }

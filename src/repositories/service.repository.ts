@@ -6,6 +6,7 @@ interface ServiceCreateParams {
     duration: number;
     state: boolean;
     discount: string;
+    urlImage: string;
 }
 
 interface ServiceUpdateParams {
@@ -15,6 +16,7 @@ interface ServiceUpdateParams {
     description?: string;
     state?: boolean;
     discount?: string;
+    urlImage?: string;
 }
 
 class ServiceRepository {
