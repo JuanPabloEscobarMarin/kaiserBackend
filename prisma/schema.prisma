@@ -32,7 +32,7 @@ model Service {
   duration     Int
   state        Boolean       @default(true)
   discount     Decimal       @default(0)
-  urlImage     String?       @default("https://co.linkedin.com/in/kevin-jay-herrera-1a1291233")
+  urlImage     String?       @default("")
   appointments Appointment[]
 }
 
