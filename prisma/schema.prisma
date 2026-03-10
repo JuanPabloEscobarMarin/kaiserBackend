@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id       String @id @default(uuid())
+  username String @unique
+  password String
+  phone    String @unique
+  role     Role   @default(CLIENT)
+}
+
+model Employee {
+  id           String        @id @default(uuid())
+  fullName     String
+  state        Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  phone        String        @unique
+  salary       Decimal       @default(0)
+  appointments Appointment[]
+}
+
+model Service {
+  id           String        @id @default(uuid())
+  name         String        @unique
+  price        Decimal
+  duration     Int
+  state        Boolean       @default(true)
+  discount     Decimal       @default(0)
+  urlImage     String?       @default("")
+  appointments Appointment[]
+}
+
+model Appointment {
+  id         String           @id @default(uuid())
+  serviceId  String
+  employeeId String
+  state      AppointmentState @default(SCHEDULED)
+  employee   Employee         @relation(fields: [employeeId], references: [id])
+  service    Service          @relation(fields: [serviceId], references: [id])
+  Customer   Customer[]
+}
+
+model Customer {
+  id            String      @id
+  name          String?
+  appointmentId String
+  ingress       DateTime    @default(now())
+  Appointment   Appointment @relation(fields: [appointmentId], references: [id])
+}
+
+enum Role {
+  CLIENT
+  ADMIN
+}
+
+enum AppointmentState {
+  SCHEDULED
+  CANCELLED
+  FINISHED
+}
