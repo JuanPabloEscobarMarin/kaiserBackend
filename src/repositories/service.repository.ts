@@ -7,6 +7,7 @@ interface ServiceCreateParams {
     state: boolean;
     discount: string;
     urlImage: string;
+    description: string;
 }
 
 interface ServiceUpdateParams {
