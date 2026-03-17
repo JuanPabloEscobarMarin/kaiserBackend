@@ -7,6 +7,7 @@ interface ServiceCreateParams {
     state: boolean;
     discount: string;
     urlImage: string;
+    description: string;
 }
 
 interface ServiceUpdateParams {
@@ -23,7 +24,10 @@ class ServiceRepository {
     all = async () => await prisma.service.findMany();
 
     byId = async (id: string) =>
-        await prisma.service.findFirst({ where: { id }, include: { appointments: { include: { employee: true } } } });
+        await prisma.service.findFirst({
+            where: { id },
+            include: { appointments: { include: { employee: true } } },
+        });
 
     save = async (service: ServiceCreateParams) =>
         await prisma.service.create({ data: service });

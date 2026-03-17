@@ -10,7 +10,7 @@ class ServiceService {
     };
 
     create = async (
-        { name, price, duration, state, discount, urlImage }: any,
+        { name, price, duration, state, discount, urlImage, description }: any,
     ) => {
         if (!name || typeof name !== "string" || name.trim().length === 0) {
             throw new Error("name is required");
@@ -27,12 +27,13 @@ class ServiceService {
             state,
             discount,
             urlImage: "",
+            description: "",
         });
     };
 
     update = async (
         id: any,
-        { name, price, duration, state, discount, urlImage }: any,
+        { name, price, duration, state, discount, urlImage, description }: any,
     ) => {
         if (!this.isServiceIdValid(id)) throw Error("No es un id valido");
 
@@ -47,6 +48,7 @@ class ServiceService {
             state,
             discount,
             urlImage,
+            description,
         });
     };
 
