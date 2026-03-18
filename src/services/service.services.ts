@@ -26,8 +26,8 @@ class ServiceService {
             duration,
             state,
             discount,
-            urlImage: "",
-            description: "",
+            urlImage,
+            description,
         });
     };
 
