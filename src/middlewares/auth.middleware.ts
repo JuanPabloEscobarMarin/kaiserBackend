@@ -13,7 +13,7 @@ export const adminVerify = async (
 
   try {
     const { payload } = await jwtVerify(token, secret);
-    if ((payload as any).role !== "ADMIN") {
+    if ((payload as any).role !== "admin") {
       return res.status(403).send("no eres admin crack");
     }
     next();
