@@ -37,7 +37,20 @@ class ServiceService {
     ) => {
         if (!this.isServiceIdValid(id)) throw Error("No es un id valido");
 
-        //TODO: Agregar validaciones
+        if (
+            name !== undefined &&
+            (typeof name !== "string" || name.trim().length === 0)
+        ) {
+            throw new Error("name no puede ser un string vacío");
+        }
+
+        if (
+            price !== undefined &&
+            (typeof price !== "string" || price.trim().length === 0)
+        ) {
+            throw new Error("price no puede ser un string vacío");
+        }
+
         // Agregar validacion de que no haya un appointment AGENDADO con este servicio antes de desactivarlo
         // o de cambiarle el tiempo o el precio
 
