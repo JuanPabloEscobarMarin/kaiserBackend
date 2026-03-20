@@ -71,6 +71,15 @@ class ServiceService {
         return await ServiceRepository.delete(id);
     };
 
+    deleteMany = async (ids: any) => {
+        if (
+            !Array.isArray(ids) || ids.some((id) => !this.isServiceIdValid(id))
+        ) {
+            throw new Error("Uno o mas Ids son invalidos");
+        }
+        return await ServiceRepository.deleteMany(ids);
+    };
+
     private isServiceIdValid = (id: any) => {
         const uuidRegex =
             /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;

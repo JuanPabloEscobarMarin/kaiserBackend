@@ -37,6 +37,9 @@ class ServiceRepository {
 
     delete = async (id: string) =>
         await prisma.service.delete({ where: { id } });
+
+    deleteMany = async (ids: string[]) =>
+        await prisma.service.deleteMany({ where: { id: { in: ids } } });
 }
 
 export default new ServiceRepository();
