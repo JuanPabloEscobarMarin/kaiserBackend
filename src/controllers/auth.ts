@@ -26,3 +26,9 @@ export const login = async (req: Request, res: Response) => {
 export const logout = (_: Request, res: Response) => {
     res.clearCookie("jwt_token").json({ message: "Sesion terminada" });
 };
+
+export const check = (req: Request, res: Response) => {
+    res
+        .cookie("jwt_token", req.cookies["jwt_token"])
+        .json({ message: "Sesion refrescada correctamente" });
+};

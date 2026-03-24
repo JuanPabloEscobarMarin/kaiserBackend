@@ -8,5 +8,6 @@ router.get("/:id", ServicesController.getById);
 router.post("/", ServicesController.save);
 router.put("/:id", ServicesController.update);
 router.delete("/:id", ServicesController.delete);
+router.delete("/", ServicesController.deleteMany);
 
 export default router;

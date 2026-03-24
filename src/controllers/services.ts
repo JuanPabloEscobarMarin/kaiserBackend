@@ -59,6 +59,20 @@ class ServicesController {
             }
         }
     };
+
+    deleteMany = async (req: Request, res: Response) => {
+        try {
+            const service = await ServiceService.deleteMany(req.body.ids);
+            return res.json({
+                message: "Servicios eliminados",
+                deleteCount: service.count,
+            });
+        } catch (error) {
+            if (error instanceof Error) {
+                return res.status(400).json({ error: error.message });
+            }
+        }
+    };
 }
 
 export default new ServicesController();
