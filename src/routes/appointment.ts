@@ -1,4 +1,4 @@
-import AppointmentController from "../controllers/appointments.ts";
+import AppointmentController from "../controllers/appointments.controller.ts";
 import { Router } from "express";
 
 const router = Router();

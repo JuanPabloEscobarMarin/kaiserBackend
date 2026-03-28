@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { check, login, logout } from "../controllers/auth.ts";
+import { check, login, logout } from "../controllers/auth.controller.ts";
 import { adminVerify } from "../middlewares/auth.middleware.ts";
 
 const router = Router();

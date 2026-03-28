@@ -1,4 +1,4 @@
-import EmployeeController from "../controllers/employee.ts";
+import EmployeeController from "../controllers/employees.controller.ts";
 import { Router } from "express";
 import { adminVerify } from "../middlewares/auth.middleware.ts";
 

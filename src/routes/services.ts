@@ -1,4 +1,4 @@
-import ServicesController from "../controllers/services.ts";
+import ServicesController from "../controllers/services.controller.ts";
 import { Router } from "express";
 
 const router = Router();

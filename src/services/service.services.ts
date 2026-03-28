@@ -1,90 +1,98 @@
+import { NotFoundException } from "../exceptions/NotFoundException.ts";
 import ServiceRepository from "../repositories/service.repository.ts";
 
 class ServiceService {
-    getAll = async () => await ServiceRepository.all();
+  getAll = async () => await ServiceRepository.all();
 
-    getById = async (id: any) => {
-        if (!this.isServiceIdValid(id)) throw Error("No es un id valido");
+  getById = async (id: any) => {
+    if (!this.isServiceIdValid(id)) throw Error("No es un id valido");
 
-        return await ServiceRepository.byId(id);
-    };
+    const service = await ServiceRepository.byId(id);
+    if (!service) throw new NotFoundException("Service not found");
 
-    create = async (
-        { name, price, duration, state, discount, urlImage, description }: any,
-    ) => {
-        if (!name || typeof name !== "string" || name.trim().length === 0) {
-            throw new Error("name is required");
-        }
+    return service;
+  };
 
-        if (!price || price === null) {
-            throw new Error("price is required");
-        }
+  create = async ({
+    name,
+    price,
+    duration,
+    state,
+    discount,
+    urlImage,
+    description,
+  }: any) => {
+    if (!name || typeof name !== "string" || name.trim().length === 0) {
+      throw new Error("name is required");
+    }
 
-        return await ServiceRepository.save({
-            name,
-            price,
-            duration,
-            state,
-            discount,
-            urlImage,
-            description,
-        });
-    };
+    if (!price || price === null) {
+      throw new Error("price is required");
+    }
 
-    update = async (
-        id: any,
-        { name, price, duration, state, discount, urlImage, description }: any,
-    ) => {
-        if (!this.isServiceIdValid(id)) throw Error("No es un id valido");
+    return await ServiceRepository.save({
+      name,
+      price,
+      duration,
+      state,
+      discount,
+      urlImage,
+      description,
+    });
+  };
 
-        if (
-            name !== undefined &&
-            (typeof name !== "string" || name.trim().length === 0)
-        ) {
-            throw new Error("name no puede ser un string vacío");
-        }
+  update = async (
+    id: any,
+    { name, price, duration, state, discount, urlImage, description }: any,
+  ) => {
+    if (!this.isServiceIdValid(id)) throw Error("No es un id valido");
 
-        if (
-            price !== undefined &&
-            (typeof price !== "string" || price.trim().length === 0)
-        ) {
-            throw new Error("price no puede ser un string vacío");
-        }
+    if (
+      name !== undefined &&
+      (typeof name !== "string" || name.trim().length === 0)
+    ) {
+      throw new Error("name no puede ser un string vacío");
+    }
 
-        // Agregar validacion de que no haya un appointment AGENDADO con este servicio antes de desactivarlo
-        // o de cambiarle el tiempo o el precio
+    if (
+      price !== undefined &&
+      (typeof price !== "string" || price.trim().length === 0)
+    ) {
+      throw new Error("price no puede ser un string vacío");
+    }
 
-        return await ServiceRepository.update(id, {
-            name,
-            price,
-            duration,
-            state,
-            discount,
-            urlImage,
-            description,
-        });
-    };
+    // Agregar validacion de que no haya un appointment AGENDADO con este servicio antes de desactivarlo
+    // o de cambiarle el tiempo o el precio
 
-    delete = async (id: any) => {
-        // Agregar validacion de que no haya un appointment AGENDADO con este servicio antes de borrarlo
-        if (!this.isServiceIdValid(id)) throw Error("No es un id valido");
-        return await ServiceRepository.delete(id);
-    };
+    return await ServiceRepository.update(id, {
+      name,
+      price,
+      duration,
+      state,
+      discount,
+      urlImage,
+      description,
+    });
+  };
 
-    deleteMany = async (ids: any) => {
-        if (
-            !Array.isArray(ids) || ids.some((id) => !this.isServiceIdValid(id))
-        ) {
-            throw new Error("Uno o mas Ids son invalidos");
-        }
-        return await ServiceRepository.deleteMany(ids);
-    };
+  delete = async (id: any) => {
+    // Agregar validacion de que no haya un appointment AGENDADO con este servicio antes de borrarlo
+    if (!this.isServiceIdValid(id)) throw Error("No es un id valido");
+    return await ServiceRepository.delete(id);
+  };
 
-    private isServiceIdValid = (id: any) => {
-        const uuidRegex =
-            /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-        return uuidRegex.test(id);
-    };
+  deleteMany = async (ids: any) => {
+    if (!Array.isArray(ids) || ids.some((id) => !this.isServiceIdValid(id))) {
+      throw new Error("Uno o mas Ids son invalidos");
+    }
+    return await ServiceRepository.deleteMany(ids);
+  };
+
+  private isServiceIdValid = (id: any) => {
+    const uuidRegex =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    return uuidRegex.test(id);
+  };
 }
 
 export default new ServiceService();
