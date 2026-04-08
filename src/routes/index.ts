@@ -6,11 +6,13 @@ import appointmentsRouter from "./appointment.ts";
 import authRouter from "./auth.ts";
 import searchRouter from "./search.ts";
 import resourcesRouter from "./resources.ts";
+import customersRouter from "./customers.ts";
 
 const router = Router();
 
 router.use("/auth", authRouter);
 router.use("/users", usersRouter);
+router.use("/customers", customersRouter);
 router.use("/services", servicesRouter);
 router.use("/employees", employeesRouter);
 router.use("/appointments", appointmentsRouter);
