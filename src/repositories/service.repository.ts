@@ -26,7 +26,9 @@ class ServiceRepository {
     byId = async (id: string) =>
         await prisma.service.findFirst({
             where: { id },
-            include: { appointments: { include: { employee: true } } },
+            include: {
+                appointments: { include: { employee: true, Customer: true } },
+            },
         });
 
     save = async (service: ServiceCreateParams) =>

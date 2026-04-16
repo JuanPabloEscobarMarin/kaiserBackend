@@ -33,7 +33,7 @@ model Service {
   state        Boolean       @default(true)
   discount     Decimal       @default(0)
   urlImage     String?       @default("")
-  description   String?       @default("")
+  description  String?       @default("")
   appointments Appointment[]
 }
 

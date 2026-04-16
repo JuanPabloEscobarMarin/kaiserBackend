@@ -38,15 +38,15 @@ class AppointmentRepository {
   availableDateByDate = async (date: string) =>
     await prisma.appointment.findMany({
       where: {
-        customers: { some: { ingress: { not: new Date(date) } } },
+        Customer: { some: { ingress: { not: new Date(date) } } },
       },
-      include: { customers: true, service: true, employee: true },
+      include: { Customer: true, service: true, employee: true },
     });
 
   availableDate = async () =>
     await prisma.appointment.findMany({
-      where: { customers: { some: { ingress: { lt: new Date() } } } },
-      include: { customers: true, service: true, employee: true },
+      where: { Customer: { some: { ingress: { lt: new Date() } } } },
+      include: { Customer: true, service: true, employee: true },
     });
 }
 
